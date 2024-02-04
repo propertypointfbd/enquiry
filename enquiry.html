@@ -16,7 +16,7 @@
     }
 
     #popupContainer {
-      display: none;
+      display: flex;
       position: fixed;
       top: 0;
       left: 0;
@@ -64,12 +64,11 @@
   </div>
 </div>
 
-<button onclick="openPopup()">Open HubSpot Form</button>
-
 <script>
-  function openPopup() {
+  // Open the popup when the page loads
+  document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("popupContainer").style.display = "flex";
-  }
+  });
 
   function closePopup() {
     document.getElementById("popupContainer").style.display = "none";

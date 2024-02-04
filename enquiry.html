@@ -16,7 +16,7 @@
     }
 
     #popupContainer {
-      display: flex;
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -53,14 +53,24 @@
 <div id="popupContainer">
   <div id="popupContent">
     <button id="closeButton" onclick="closePopup()">Close</button>
-    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-    <script>
-      hbspt.forms.create({
-        region: "na1",
-        portalId: "7808638",
-        formId: "2708a038-fb4a-474e-a006-aa14e6c014b4"
-      });
-    </script>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required>
+
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" name="mobile" pattern="[0-9]{10}" required placeholder="Enter 10-digit mobile number">
+
+      <label for="email">Email:</label>
+      <input type="email" name="email" required>
+
+      <label for="city">City:</label>
+      <input type="text" name="city" required>
+
+      <label for="project">Project interested in:</label>
+      <input type="text" name="project" required>
+
+      <input type="submit" value="Submit">
+    </form>
   </div>
 </div>
 
@@ -77,3 +87,21 @@
 
 </body>
 </html>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $name = $_POST["name"];
+  $mobile = $_POST["mobile"];
+  $email = $_POST["email"];
+  $city = $_POST["city"];
+  $project = $_POST["project"];
+
+  $to = "contact@omaxedelhincr.com";
+  $subject = "Contact Form Submission - Real Estate Agency";
+  $message = "Name: $name\nMobile Number: $mobile\nEmail: $email\nCity: $city\nProject Interested In: $project";
+  $headers = "From: $email";
+
+  mail($to, $subject, $message, $headers);
+  // You can add a confirmation message or redirect the user to a thank you page if needed.
+}
+?>
